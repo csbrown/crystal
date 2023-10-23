@@ -462,6 +462,13 @@ all of the posts that match our search condition and not just one.
 > you return a set it is like returning a table. Users can paginate through a
 > set using `limit` and `offset`, but not an array.
 
+In order to have Postgraphile introspection automatically discover your set-returning functions:
+
+- make sure it doesn't return void
+- make sure it's marked as stable (otherwise we'll think it's a mitation)
+- make sure it's defined in one of the Postgres schemas you've told PostGraphQL to introspect
+- make sure you return a named type (e.g. a scalar, table name or domain) - we don't currently support anonymous types
+
 #### Triggers
 
 You can also use Postgres functions to define triggers. Triggers in Postgres
